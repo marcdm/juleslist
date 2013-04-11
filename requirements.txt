@@ -1,3 +1,5 @@
 ckanclient
-Django
-django-userena
+django==1.5
+# psycopg2
+# django-userena
+
