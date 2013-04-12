@@ -27,7 +27,7 @@ function getRFQs($get_params=null){
 	return (json_encode($output));
 }
 
-	getRFQs($_GET);
+
 
 //For Farmers
 function submitRFQResponse($post_params){
@@ -97,4 +97,6 @@ function submitGoodsForSale($post_params){
 	$query .= ")";
 	return $db->get_query($sql);
 }
+
+
 ?>
