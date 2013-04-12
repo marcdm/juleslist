@@ -24,8 +24,77 @@ function getRFQs($get_params=null){
 
 	$output = $db->get_results($sql);
 	
-	print_r(json_encode($output));
+	return (json_encode($output));
 }
 
 	getRFQs($_GET);
+
+//For Farmers
+function submitRFQResponse($post_params){
+	global $db;
+	$query = "INSERT INTO rfq_response ( ";//Start Query build, 
+	foreach($post_params as $k => $v)
+	{
+		$query .= ", `$k`";//Add Field Names to Query
+	}
+
+	$query .= ") VALUES (";//Start Adding Values to Query, 
+	foreach($post_params as $k => $v)
+	{
+		$query .= ", '$v'";//Add Values to Query
+	}
+
+	$query .= ")";
+	return $db->get_query($sql);
+}
+
+function getRFQResponse($rfq_id){
+	global $db;
+
+	$sql = "SELECT a.rfq_id, a.item, a.qty, a.unit_price, b.rada_id, c.first_name, c.last_name FROM rfq_response a 
+			INNER JOIN farmer b ON a.farmer_id = b.id
+			INNER JOIN contact_info c ON b.contact_info_id = c.id
+			WHERE rfq_id ".(is_array($get_params['type'])? "in (". implode(',', $get_params['type']) .")": "='".$get_params['type']."'");
+
+	$output = $db->get_results($sql);
+
+	return json_encode($output);
+
+}
+
+function submitRFQ($post_params){
+	global $db;
+	$query = "INSERT INTO  goods_rfq ( ";//Start Query build, 
+	foreach($post_params as $k => $v)
+	{
+		$query .= ", `$k`";//Add Field Names to Query
+	}
+
+	$query .= ") VALUES (";//Start Adding Values to Query, 
+	foreach($post_params as $k => $v)
+	{
+		$query .= ", '$v'";//Add Values to Query
+	}
+
+	$query .= ")";
+	return $db->get_query($sql);
+}
+
+function submitGoodsForSale($post_params){
+	global $db;
+	$query = "INSERT INTO produce ( ";//Start Query build, 
+	foreach($post_params as $k => $v)
+	{
+		$query .= ", `$k`";//Add Field Names to Query
+	}
+
+	$query .= ") VALUES (";//Start Adding Values to Query, 
+	foreach($post_params as $k => $v)
+	{
+		$query .= ", '$v'";//Add Values to Query
+	}
+
+	$query .= ")";
+	return $db->get_query($sql);
+}
 ?>
