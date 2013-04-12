@@ -15,7 +15,6 @@ if(!empty($_POST['username']) && !empty($_POST['password']))
     $username = $db->escape($_POST['username']);
     $password = $db->escape($_POST['password']).$salt;
     $email = $db->escape($_POST['email']);
-    echo $password;
     $checkusername = $db->get_row("SELECT * FROM users WHERE username = '".$username."'");
      
      if(isset($checkusername))
