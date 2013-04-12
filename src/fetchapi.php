@@ -1,6 +1,7 @@
 <?php
 
 
+
 define ("FARM_DATA_PARISH", "ST.ANN");
 define ("FARM_DATA_FARM_SIZE", "SMALL");
 define ("FARM_DATA_FARMER_ID", "1877361");
@@ -10,12 +11,16 @@ define ("FARM_DATA_LATTITUDE", "-77.32685521");
 define ("FARM_DATA_LONGITUDE", "18.402293170");
 
 
+
+
 function fetchData($sql){
 
      $ch = curl_init(); 
 
     // set url 
+
     curl_setopt($ch, CURLOPT_URL, "http://data.caribbeanopeninstitute.org/api/action/datastore_search?sql=".$sql); 
+
 
     //return the transfer as a string 
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
@@ -31,9 +36,9 @@ function fetchData($sql){
         $out = json_encode($output["records"]);
     }
     else {
-        $out = json_encode(array("failed"=>1));
+    	$out = json_encode(array("failed"=>1));
     }
-    return $out;
+    echo $out;
 }
 
 function getFarms($parish = null, $size = null){
