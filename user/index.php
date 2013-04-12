@@ -20,12 +20,11 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 }
 elseif(!empty($_POST['username']) && !empty($_POST['password']))
 {
-    
     $username = $db->escape($_POST['username']);
-    $password = sha256($db->escape($_POST['password']));
+    $password = $db->escape($_POST['password']).$salt;
     
     $checklogin = $db->get_row("SELECT * FROM users WHERE username = '".$username."' AND password = '".$password."'");
-
+    echo $password;
     if (isset($checklogin))
     {
     	$row = $checklogin;
