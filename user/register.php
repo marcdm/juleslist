@@ -13,7 +13,7 @@ if(!empty($_POST['username']) && !empty($_POST['password']))
 {
     $salt = 'salty';
     $username = $db->escape($_POST['username']);
-    $password = sha128($db->escape($_POST['password']).$salt);
+    $password = sha256($db->escape($_POST['password']).$salt);
     $email = $db->escape($_POST['email']);
     
     $checkusername = $db->get_row("SELECT * FROM users WHERE username = '".$username."'");

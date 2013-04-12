@@ -1,6 +1,6 @@
 <?php include_once 'base.php';?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">  
+<!DOCTYPE html>
+<html>  
 <head>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />  
 <title>User Management System</title>
@@ -15,14 +15,14 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 
 	 <h1>Member Area</h1>
      <p>Thanks for logging in! You are <b><?=$_SESSION['Username']?></b> and your email address is <b><?=$_SESSION['EmailAddress']?></b>.</p>
-     <p><a href="logout.php">Logout</a></p>
+     
      <?php
 }
 elseif(!empty($_POST['username']) && !empty($_POST['password']))
 {
     
     $username = $db->escape($_POST['username']);
-    $password = md5($db->escape($_POST['password']));//.$salt);
+    $password = sha256($db->escape($_POST['password']));
     
     $checklogin = $db->get_row("SELECT * FROM users WHERE username = '".$username."' AND password = '".$password."'");
 
@@ -37,8 +37,10 @@ elseif(!empty($_POST['username']) && !empty($_POST['password']))
         $_SESSION['LoggedIn'] = 1;
         
     	echo "<h1>Success</h1>";
+        echo '<p><a href="logout.php">Logout</a></p>';
         echo "<p>We are now redirecting you to the member area.</p>";
         echo "<meta http-equiv='refresh' content='=2;../index.php' />";
+        
     }
     else
     {
