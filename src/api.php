@@ -24,8 +24,8 @@ function getRFQs($get_params=null){
 
 	$output = $db->get_results($sql);
 	
-	print_r(json_encode($output));
+	return (json_encode($output));
 }
 
-	getRFQs($_GET);
+	
 ?>
