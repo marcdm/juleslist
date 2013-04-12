@@ -20,7 +20,7 @@ if(!empty($_SESSION['LoggedIn']) && !empty($_SESSION['Username']))
 }
 elseif(!empty($_POST['username']) && !empty($_POST['password']))
 {
-    $salt = 'salt';
+    
     $username = $db->escape($_POST['username']);
     $password = md5($db->escape($_POST['password']));//.$salt);
     
